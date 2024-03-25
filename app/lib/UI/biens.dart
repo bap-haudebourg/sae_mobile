@@ -41,9 +41,9 @@ class _MyWidgetState extends State<Biens> {
                                 border: Border.all(color: Colors.black),
                             ),
                             child: ListTile(
-                                title: Text(snapshot.data[index]['nom'] ?? 'Default Name'),
-                                subtitle: Text(snapshot.data[index]['description'] ?? 'Default Description'),
-                                trailing: Text(snapshot.data[index]['nom_categorie'] ?? 'Default Category'),
+                                title: Text(snapshot.data[index]['nom'] ?? 'Nom par défaut'),
+                                subtitle: Text(snapshot.data[index]['description'] ?? 'Description par défaut'),
+                                trailing: Text(snapshot.data[index]['nom_categorie'] ?? 'Catégorie par défaut'
                             ),
                             );
                         },
