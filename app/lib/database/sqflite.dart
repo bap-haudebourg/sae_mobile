@@ -45,14 +45,13 @@ class DBHelper {
 
 Future<List<Map<String, dynamic>>> getAnnonces() async {
   Database db = await DBHelper().db;
-  var res = await db.rawQuery('SELECT * FROM Annonce JOIN Produit ON Annonce.id = Produit.id_annonce JOIN Categorie ON Produit.id_categorie = Categorie.id');
+  var res = await db.rawQuery('SELECT Annonce.titre AS nom, Categorie.nom AS nom_categorie, Produit.nom AS nom_produit, Annonce.dateDebut, Annonce.dateFin FROM Annonce JOIN Produit ON Annonce.id = Produit.id_annonce JOIN Categorie ON Produit.id_categorie = Categorie.id');
   return res.toList().cast<Map<String, dynamic>>();
 }
 
 Future<List<Map<String, dynamic>>> getProduits() async {
   Database db = await DBHelper().db;
   var res = await db.rawQuery('SELECT Produit.nom AS nom, Produit.description as description, Categorie.nom AS nom_categorie FROM Produit JOIN Categorie ON Produit.id_categorie = Categorie.id');
-  res = res.toList().expand((i) => List.filled(4, i)).toList();
   return res.toList().cast<Map<String, dynamic>>();
 }
 
