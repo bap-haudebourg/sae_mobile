@@ -19,7 +19,16 @@ class DBHelper {
     try {
       io.Directory documentDirectory = await getApplicationDocumentsDirectory();
       String path = join(documentDirectory.path, 'allo.db');
+      deleteDatabase(path);
       var db = await openDatabase(path, version: 1, onCreate: _onCreate);
+      db.rawInsert('INSERT INTO Categorie(nom) VALUES("Véhicules")');
+        db.rawInsert('INSERT INTO Categorie(nom) VALUES("Immobilier")');
+        db.rawInsert('INSERT INTO Categorie(nom) VALUES("Mode")');
+        db.rawInsert('INSERT INTO Categorie(nom) VALUES("Multimédia")');
+        db.rawInsert('INSERT INTO Annonce(dateDebut, dateFin, titre) VALUES("2021-10-01", "2021-10-31", "Annonce 1")');
+        db.rawInsert('INSERT INTO Annonce(dateDebut, dateFin, titre) VALUES("2021-11-01", "2021-11-30", "Annonce 2")');
+        db.rawInsert('INSERT INTO Produit(nom, id_categorie, id_annonce, description) VALUES("Voiture", 1, 1, "Voiture en bon état")');
+        db.rawInsert('INSERT INTO Produit(nom, id_categorie, id_annonce, description) VALUES("Maison", 2, 2, "Maison en bon état")');
       return db;
     } catch (e) {
       debugPrint("Error: $e");
@@ -42,8 +51,8 @@ Future<List<Map<String, dynamic>>> getAnnonces() async {
 
 Future<List<Map<String, dynamic>>> getProduits() async {
   Database db = await DBHelper().db;
-  var res = await db.rawQuery('SELECT Produit.nom AS nom, Categorie.nom AS nom_categorie FROM Produit JOIN Categorie ON Produit.id_categorie = Categorie.id');
-  res = res.toList().expand((i) => List.filled(50, i)).toList();
+  var res = await db.rawQuery('SELECT Produit.nom AS nom, Produit.description as description, Categorie.nom AS nom_categorie FROM Produit JOIN Categorie ON Produit.id_categorie = Categorie.id');
+  res = res.toList().expand((i) => List.filled(4, i)).toList();
   return res.toList().cast<Map<String, dynamic>>();
 }
 
