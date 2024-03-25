@@ -12,16 +12,6 @@ class _MyWidgetState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-        title: Text(
-        "ALL'O",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20,),
-    ),
-    centerTitle: true,
-    backgroundColor: Colors.lightBlue,
-    ),
     );
   }
 }
